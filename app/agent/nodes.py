@@ -111,31 +111,24 @@ def risk_node(state):
 def decision_node(state):
 
     prompt = f"""
-    You are an investment analyst.
-
-    Company Analysis:
-    {state['company_info']}
-
-    Financial Analysis:
-    {state['finance_info']}
-
-    News Analysis:
-    {state['news_info']}
-
-    Risk Analysis:
-    {state['risk_analysis']}
-
-    Make a final recommendation.
-
-    Return:
+    Return output in this format:
 
     Recommendation:
-    INVEST / WATCHLIST / PASS
+    INVEST/WATCHLIST/PASS
 
-    Confidence Score:
-    1-100
+    Confidence:
+    0-100
 
-    Detailed Reasoning
+    Top Positives:
+    - point
+    - point
+
+    Top Risks:
+    - point
+    - point
+
+    Summary:
+    short paragraph
     """
 
     response = llm.invoke(prompt)

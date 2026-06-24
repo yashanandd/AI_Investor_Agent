@@ -1,15 +1,12 @@
-COMPANY_SYMBOLS = {
-    "tesla": "TSLA",
-    "apple": "AAPL",
-    "microsoft": "MSFT",
-    "nvidia": "NVDA",
-    "amazon": "AMZN",
-    "google": "GOOGL",
-    "meta": "META"
-}
+from yahooquery import search
 
 def get_symbol(company_name):
 
-    return COMPANY_SYMBOLS.get(
-        company_name.lower()
-    )
+    result = search(company_name)
+
+    quotes = result.get("quotes", [])
+
+    if not quotes:
+        return None
+
+    return quotes[0]["symbol"]
