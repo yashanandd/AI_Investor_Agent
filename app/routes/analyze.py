@@ -2,10 +2,14 @@ from fastapi import APIRouter
 
 from app.agent.graph import graph
 from app.models.request import AnalyzeRequest
+from app.models.response import AnalyzeResponse
 
 router = APIRouter()
 
-@router.post("/analyze")
+@router.post(
+    "/analyze",
+    response_model=AnalyzeResponse
+)
 def analyze(data: AnalyzeRequest):
 
     result = graph.invoke(
