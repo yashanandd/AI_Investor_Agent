@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import AnalysisCard from "./AnalysisCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function CompanyForm() {
   const [company, setCompany] = useState("");
@@ -47,6 +48,11 @@ export default function CompanyForm() {
       /\b\d{1,3}\b/
     )?.[0] || "N/A";
 
+  const riskLevel =
+    result?.risk_analysis?.match(
+      /LOW|MEDIUM|HIGH/i
+    )?.[0] || "UNKNOWN";
+
   const badgeColor =
     recommendation === "INVEST"
       ? "bg-green-900"
@@ -74,13 +80,7 @@ export default function CompanyForm() {
         </button>
       </div>
 
-      {loading && (
-        <div className="mt-5">
-          <p className="animate-pulse">
-            Analyzing company...
-          </p>
-        </div>
-      )}
+      {loading && <LoadingSpinner />}
 
       {result && (
         <div className="mt-8">
@@ -105,7 +105,7 @@ export default function CompanyForm() {
 
           {/* Stats Row */}
 
-          <div className="grid md:grid-cols-3 gap-4 mb-6">
+          <div className="grid md:grid-cols-4 gap-4 mb-6">
 
             <div className="border rounded-xl p-4">
               <h3 className="font-bold">
@@ -133,6 +133,14 @@ export default function CompanyForm() {
                   ? "N/A"
                   : `${confidence}%`}
               </p>
+            </div>
+
+            <div className="border rounded-xl p-4">
+              <h3 className="font-bold">
+                Risk Level
+              </h3>
+
+              <p>{riskLevel}</p>
             </div>
 
           </div>

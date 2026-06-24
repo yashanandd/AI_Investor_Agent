@@ -3,6 +3,7 @@ from app.services.company import get_symbol
 from app.services.news import get_company_news
 from app.services.llm import llm
 
+
 def company_research_node(state):
 
     company = state["company"]
@@ -10,13 +11,27 @@ def company_research_node(state):
     prompt = f"""
     Analyze {company}.
 
-    Provide:
-    1. Business Model
-    2. Main Products
-    3. Industry Position
-    4. Competitive Advantages
+    Return exactly:
 
-    Keep it concise.
+    Business Model:
+    - point
+
+    Main Products:
+    - point
+    - point
+
+    Industry Position:
+    - point
+
+    Competitive Advantages:
+    - point
+    - point
+
+    Verdict:
+    - one sentence
+
+    Maximum 80 words.
+    Use bullet points only.
     """
 
     response = llm.invoke(prompt)
@@ -24,6 +39,7 @@ def company_research_node(state):
     return {
         "company_info": response.content
     }
+
 
 def finance_node(state):
 
@@ -38,10 +54,23 @@ def finance_node(state):
 
     {data}
 
-    Explain:
-    - valuation
-    - financial strength
-    - investment attractiveness
+    Return exactly:
+
+    Valuation:
+    - point
+
+    Financial Strength:
+    - point
+    - point
+
+    Growth Potential:
+    - point
+
+    Investment Attractiveness:
+    - one sentence
+
+    Maximum 100 words.
+    Use bullet points only.
     """
 
     response = llm.invoke(prompt)
@@ -49,6 +78,7 @@ def finance_node(state):
     return {
         "finance_info": response.content
     }
+
 
 def news_node(state):
 
@@ -63,12 +93,24 @@ def news_node(state):
 
     {news_data}
 
-    Summarize:
+    Return exactly:
 
-    - Important developments
-    - Opportunities
-    - Risks
-    - Overall sentiment
+    Key Developments:
+    - point
+    - point
+    - point
+
+    Opportunities:
+    - point
+
+    Risks:
+    - point
+
+    Sentiment:
+    Positive / Neutral / Negative
+
+    Maximum 100 words.
+    Use bullet points only.
     """
 
     response = llm.invoke(prompt)
@@ -77,29 +119,43 @@ def news_node(state):
         "news_info": response.content
     }
 
+
 def risk_node(state):
 
     prompt = f"""
-    Analyze investment risks based on:
+    Analyze investment risks.
 
-    COMPANY ANALYSIS:
+    COMPANY:
     {state['company_info']}
 
-    FINANCIAL ANALYSIS:
+    FINANCIALS:
     {state['finance_info']}
 
-    NEWS ANALYSIS:
+    NEWS:
     {state['news_info']}
 
-    Identify:
+    Return exactly:
 
-    1. Financial Risks
-    2. Business Risks
-    3. Market Risks
-    4. Competitive Risks
-
-    Give an overall risk level:
+    Risk Level:
     LOW / MEDIUM / HIGH
+
+    Financial Risks:
+    - point
+
+    Business Risks:
+    - point
+
+    Market Risks:
+    - point
+
+    Competitive Risks:
+    - point
+
+    Summary:
+    - one sentence
+
+    Maximum 100 words.
+    Use bullet points only.
     """
 
     response = llm.invoke(prompt)
@@ -108,27 +164,47 @@ def risk_node(state):
         "risk_analysis": response.content
     }
 
+
 def decision_node(state):
 
     prompt = f"""
-    Return output in this format:
+    You are a professional investment analyst.
+
+    Company Analysis:
+    {state['company_info']}
+
+    Financial Analysis:
+    {state['finance_info']}
+
+    News Analysis:
+    {state['news_info']}
+
+    Risk Analysis:
+    {state['risk_analysis']}
+
+    Return exactly:
 
     Recommendation:
-    INVEST/WATCHLIST/PASS
+    INVEST / WATCHLIST / PASS
 
     Confidence:
-    0-100
+    XX
 
-    Top Positives:
+    Key Strengths:
     - point
     - point
+    - point
 
-    Top Risks:
+    Key Risks:
+    - point
     - point
     - point
 
     Summary:
-    short paragraph
+    one short sentence
+
+    Maximum 120 words.
+    Use bullet points only.
     """
 
     response = llm.invoke(prompt)
