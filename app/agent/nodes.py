@@ -1,7 +1,7 @@
 from app.services.finance import get_financial_data
 from app.services.company import get_symbol
 from app.services.news import get_company_news
-from app.services.gemini import llm
+from app.services.llm import llm
 
 def company_research_node(state):
 
