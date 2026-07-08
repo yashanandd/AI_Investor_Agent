@@ -150,31 +150,16 @@ Tesla
 
 ---
 
-## Screenshots
+## Live Demo
 
-### Dashboard
+Frontend:
+https://ai-investor-agent-one.vercel.app/
 
-![Dashboard](screenshots/dashboard.png)
+Backend:
+https://ai-investor-agent.onrender.com
 
-### Analysis Result
-
-![Analysis Result](screenshots/analysis-result.png)
-
-### Recommendation Dashboard
-
-![Recommendation](screenshots/recommendation.png)
-
----
-
-## Live Deployment
-
-### Frontend
-
-Frontend Link Here
-
-### Backend
-
-Backend Link Here
+API Docs:
+https://ai-investor-agent.onrender.com/docs
 
 ---
 
